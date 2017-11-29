@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-var AuthService = (function () {
+var AuthService = /** @class */ (function () {
     function AuthService() {
     }
     AuthService.prototype.login = function (provider) {
@@ -81,7 +81,8 @@ var AuthService = (function () {
                 case "linkedin":
                     IN.User.authorize(function () {
                         IN.API.Raw("/people/~:(id,first-name,last-name,email-address,picture-url)").result(function (res) {
-                            var userDetails = { name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl };
+                            var accessToken = IN.ENV.auth.oauth_token;
+                            var userDetails = { name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl, access_token: accessToken };
                             localStorage.setItem('_login_provider', 'linkedin');
                             observer.next(userDetails);
                             observer.complete();

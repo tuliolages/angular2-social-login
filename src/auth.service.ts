@@ -89,7 +89,8 @@ export class AuthService {
                     case "linkedin":
                                     IN.User.authorize(function(){
                                         IN.API.Raw("/people/~:(id,first-name,last-name,email-address,picture-url)").result(function(res: any){
-                                            let userDetails = {name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl};
+                                            let accessToken = IN.ENV.auth.oauth_token;
+                                            let userDetails = {name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl, access_token: accessToken};
                                             localStorage.setItem('_login_provider', 'linkedin');
                                             observer.next(userDetails);
                                             observer.complete();

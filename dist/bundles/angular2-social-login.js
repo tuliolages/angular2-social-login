@@ -10,7 +10,7 @@ var __decorate$1 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var AuthService = (function () {
+var AuthService = /** @class */ (function () {
     function AuthService() {
     }
     AuthService.prototype.login = function (provider) {
@@ -85,7 +85,8 @@ var AuthService = (function () {
                 case "linkedin":
                     IN.User.authorize(function () {
                         IN.API.Raw("/people/~:(id,first-name,last-name,email-address,picture-url)").result(function (res) {
-                            var userDetails = { name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl };
+                            var accessToken = IN.ENV.auth.oauth_token;
+                            var userDetails = { name: res.firstName + " " + res.lastName, email: res.emailAddress, uid: res.id, provider: "linkedIN", image: res.pictureUrl, access_token: accessToken };
                             localStorage.setItem('_login_provider', 'linkedin');
                             observer.next(userDetails);
                             observer.complete();
@@ -159,7 +160,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var Angular2SocialLoginModule = (function () {
+var Angular2SocialLoginModule = /** @class */ (function () {
     function Angular2SocialLoginModule() {
     }
     Angular2SocialLoginModule.loadProvidersScripts = function (config) {
